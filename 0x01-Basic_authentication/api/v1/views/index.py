@@ -9,7 +9,7 @@ from api.v1.views import app_views
 def status() -> str:
     """ GET /api/v1/status
     Return:
-      - API status
+      - the status of the API
     """
     return jsonify({"status": "OK"})
 
@@ -28,13 +28,17 @@ def stats() -> str:
 
 @app_views.route('/unauthorized', methods=['GET'], strict_slashes=False)
 def unauthorized() -> str:
-    """ GET /api/V1/unauthorized
-        return aborts"""
+    """ GET /api/v1/unauthorized
+    Return:
+      - raises a 401 error using abort
+    """
     abort(401)
 
 
 @app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
 def forbidden() -> str:
-    """GET /api/V1/forbidden
-        return aborts"""
+    """ GET /api/v1/forbidden
+    Return:
+      - raises a 403 error by using abort
+    """
     abort(403)
