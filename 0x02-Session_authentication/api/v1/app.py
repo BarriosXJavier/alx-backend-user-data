@@ -7,6 +7,7 @@ from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
 from os import getenv
 from api.v1.auth.session_exp_auth import SessionExpAuth
+from api.v1.auth.session_db_auth import SessionDBAuth
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
@@ -27,7 +28,6 @@ elif AUTH_TYPE == "session_auth":
 elif AUTH_TYPE == "session_exp_auth":
     auth = SessionExpAuth()
 elif AUTH_TYPE == "session_db_auth":
-    from api.v1.auth.session_db_auth import SessionDBAuth
     auth = SessionDBAuth()
 
 @app.errorhandler(404)
