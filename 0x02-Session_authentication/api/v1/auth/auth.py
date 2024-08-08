@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-""" Module of Authentication
-"""
+""" Module of Authentication """
 from flask import request
+from os import getenv
 from typing import TypeVar, List
-
 
 class Auth:
     """ Class to manage the API authentication """
@@ -18,7 +17,6 @@ class Auth:
             return True
 
         slash_path = True if path[l_path - 1] == '/' else False
-
         tmp_path = path
         if not slash_path:
             tmp_path += '/'
@@ -27,7 +25,6 @@ class Auth:
             l_exc = len(exc)
             if l_exc == 0:
                 continue
-
             if exc[l_exc - 1] != '*':
                 if tmp_path == exc:
                     return False
@@ -41,9 +38,28 @@ class Auth:
         """ Method to handle authorization header """
         if request is None:
             return None
-
         return request.headers.get("Authorization", None)
 
     def current_user(self, request=None) -> TypeVar('User'):
         """ Validates current user """
         return None
+
+    def session_cookie(self, request=None):
+        """
+        Returns a cookie value from a request
+
+        Args:
+            request (flask.Request): The request object.
+
+        Returns:
+            str: The value of the cookie named `SESSION_NAME`, or `None` if
+                 the request is `None` or the cookie is not found.
+        """
+        if request is None:
+            return None
+
+        session_name = getenv("SESSION_NAME")
+        if session_name is None:
+            return None
+
+        return request.cookies.get(session_name)
