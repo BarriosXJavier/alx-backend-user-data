@@ -10,7 +10,7 @@ from uuid import uuid4
 
 
 def _hash_password(password: str) -> str:
-    """ Returns a salted hash of the input password """
+    """ Return a salted hash of the input password """
     hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
     return hashed
 
@@ -29,7 +29,7 @@ class Auth:
         self._db = DB()
 
     def register_user(self, email: str, password: str) -> User:
-        """ Registers a user in the database
+        """ Register a user in the database
         Returns: User Object
         """
 
